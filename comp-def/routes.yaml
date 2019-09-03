@@ -1,4 +1,14 @@
 packages:
-  - "github.com/graniticio/granitic/v2/ws/handler"
+  - github.com/graniticio/granitic/v2/ws/handler
+  - bookapi/endpoint/book
 
 components:
+
+  getBookLogic:
+    type: book.GetBookLogic
+
+  getBookHandler:
+    type: handler.WsHandler
+    HTTPMethod: GET
+    Logic: ref:getBookLogic
+    PathPattern: "^/books"
