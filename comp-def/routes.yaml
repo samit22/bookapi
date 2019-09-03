@@ -1,0 +1,4 @@
+packages:
+  - "github.com/graniticio/granitic/v2/ws/handler"
+
+components:
