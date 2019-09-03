@@ -1,5 +1,6 @@
 packages:
   - github.com/graniticio/granitic/v2/ws/handler
+  - github.com/graniticio/granitic/v2/validate
   - bookapi/endpoint/book
 
 components:
@@ -13,11 +14,14 @@ components:
     Logic: ref:getBookLogic
     PathPattern: "^/books"
 
+  addBookValidator:
+    type: validate.RuleValidator
+    Rules: conf:createBookRules
   addBookLogic:
     type: book.AddBookLogic
-
   addBookHandler:
     type: handler.WsHandler
     HTTPMethod: POST
     Logic: ref:addBookLogic
     PathPattern: "^/books"
+    AutoValidator: ref:addBookValidator
