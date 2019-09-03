@@ -12,3 +12,12 @@ components:
     HTTPMethod: GET
     Logic: ref:getBookLogic
     PathPattern: "^/books"
+
+  addBookLogic:
+    type: book.AddBookLogic
+
+  addBookHandler:
+    type: handler.WsHandler
+    HTTPMethod: POST
+    Logic: ref:addBookLogic
+    PathPattern: "^/books"
