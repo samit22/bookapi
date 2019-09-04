@@ -7,7 +7,7 @@ import (
 
 type File struct{}
 
-func (f *File) Read(path string) (string, error) {
+func (f File) Read(path string) (string, error) {
 	dat, err := ioutil.ReadFile(path)
 	if err != nil {
 		return "", err
@@ -16,7 +16,7 @@ func (f *File) Read(path string) (string, error) {
 	}
 }
 
-func (f *File) Write(path string, val string) error {
+func (f File) Write(path string, val string) error {
 	fp, err := os.Create(path)
 	if err == nil {
 		fp.WriteString(val)
