@@ -4,13 +4,15 @@ import (
 	"context"
 	"strings"
 
-	"bookapi/utils"
-
 	"github.com/graniticio/granitic/v2/ws"
 )
 
 type GetBookLogic struct {
-	File utils.File
+	File FileReader
+}
+
+type FileReader interface {
+	Read(path string) (string, error)
 }
 
 type Book struct {

@@ -1,14 +1,16 @@
 package book
 
 import (
-	"bookapi/utils"
 	"context"
 
 	"github.com/graniticio/granitic/v2/ws"
 )
 
 type WriteBookLogic struct {
-	File utils.File
+	File FileWriter
+}
+type FileWriter interface {
+	Write(path string, val string) error
 }
 
 type WriteBookRequest struct {
