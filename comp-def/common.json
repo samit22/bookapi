@@ -1,0 +1,25 @@
+{
+  "packages": [
+    "github.com/graniticio/granitic/v2/ws/handler",
+    "bookapi/books"
+  ],
+
+  "components": {
+    "getBookHandler": {
+      "type": "handler.WsHandler",
+      "HTTPMethod": "GET",
+      "Logic": {
+        "type": "books.GetLogic"  
+      },
+      "PathPattern": "^/books"
+    },
+    "postBookHandler": {
+      "type": "handler.WsHandler",
+      "HTTPMethod": "POST",
+      "Logic": {
+        "type": "books.PostLogic"  
+      },
+      "PathPattern": "^/books"
+    }
+  }
+}
