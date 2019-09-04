@@ -12,6 +12,9 @@ HTTPServer:
 ApplicationLogger:
   GlobalLogLevel: INFO
 
+Service:
+  BookStore: books.csv
+
 createBookRules:
   - ["Name", "STR:INVALID_NAME", "REQ:INVALID_NAME", "HARDTRIM", "LEN:2-100"]
   - ["Author", "STR:INVALID_AUTHOR", "REQ:INVALID_AUTHOR", "HARDTRIM", "LEN:2-100"]
