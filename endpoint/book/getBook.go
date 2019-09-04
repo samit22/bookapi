@@ -2,22 +2,32 @@ package book
 
 import (
 	"context"
+	"strings"
+
+	"bookapi/utils"
 
 	"github.com/graniticio/granitic/v2/ws"
 )
 
-type GetBookLogic struct{}
+type GetBookLogic struct {
+	File utils.File
+}
 
 type Book struct {
-	Name   string
-	Author string
+	Name   string `json:"name"`
+	Author string `json:"author"`
 }
 
 func (gl *GetBookLogic) Process(ctx context.Context, req *ws.Request, res *ws.Response) {
+	s, e := gl.File.Read("tmp/file.txt")
+	if e != nil {
+		res.Body = "Error reading file"
+	} else {
+		sp := strings.Split(s, ",")
+		a := new(Book)
+		a.Name = sp[0]
+		a.Author = sp[1]
 
-	a := new(Book)
-	a.Name = "My Book"
-	a.Author = "Ram"
-
-	res.Body = a
+		res.Body = a
+	}
 }

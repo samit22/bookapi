@@ -1,11 +1,19 @@
 packages:
   - github.com/graniticio/granitic/v2/ws/handler
   - bookapi/endpoint/book
+  - bookapi/utils
 
 components:
 
   getBookLogic:
     type: book.GetBookLogic
+    File: ref:fileHelper
+  
+  getAuthorsLogic:
+    type: book.GetAuthorsLogic
+  
+  fileHelper:
+    type: utils.File 
 
   getBookHandler:
     type: handler.WsHandler
@@ -13,11 +21,18 @@ components:
     Logic: ref:getBookLogic
     PathPattern: "^/books"
 
-  addBookLogic:
-    type: book.AddBookLogic
-
-  addBookHandler:
+  getAuthorsHandler:
+    type: handler.WsHandler
+    HTTPMethod: GET
+    Logic: ref:getAuthorsLogic
+    PathPattern: "^/authors"
+  
+  writeBookLogic:
+    type: book.WriteBookLogic
+    File: ref:fileHelper
+  
+  writeBookHandler:
     type: handler.WsHandler
     HTTPMethod: POST
-    Logic: ref:addBookLogic
+    Logic: ref:writeBookLogic
     PathPattern: "^/books"
