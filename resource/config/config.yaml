@@ -12,3 +12,6 @@ HTTPServer:
 ApplicationLogger:
   GlobalLogLevel: INFO
 
+Service:
+  BookStore: "book.csv"
+

@@ -2,11 +2,13 @@ packages:
   - github.com/graniticio/granitic/v2/ws/handler
   - bookapi/endpoint/book
   - bookapi/endpoint/author
+  - bookapi/pkg/file
 
 components:
 
   getBookLogic:
     type: book.GetBookLogic
+    FileReader: ref:fileReaderWriter
   
   getAuthorLogic:
     type: author.GetAuthorLogic
@@ -31,3 +33,8 @@ components:
     HTTPMethod: GET
     Logic: ref:getAuthorLogic
     PathPattern: "^/authors"
+
+  fileReaderWriter:
+    type: file.ReaderWriter
+    FileName: conf:Service.BookStore
+  
