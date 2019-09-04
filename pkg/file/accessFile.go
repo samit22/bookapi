@@ -1,7 +1,6 @@
 package file
 
 import (
-	"bookapi/endpoint/book"
 	"encoding/csv"
 	"errors"
 	"os"
@@ -40,26 +39,22 @@ func (f Manager) Write(name string, auth string) error {
 	return nil
 }
 
-func (f Manager) Read() ([]book.Book, error) {
-	books := make([]book.Book, 0)
+func (f Manager) Read() ([][]string, error) {
+	d := make([][]string, 0)
 	if !fileExists(f.FileName) {
-		return books, errors.New("file doesn't exist")
+		return d, errors.New("file doesn't exist")
 	}
 	file, err := os.OpenFile(f.FileName, os.O_RDONLY, 0644)
 	if err != nil {
-		return books, errors.New("error opening file")
+		return d, errors.New("error opening file")
 	}
 	defer file.Close()
 	data, err := csv.NewReader(file).ReadAll()
 	if err != nil {
-		return books, errors.New("error reading file")
+		return d, errors.New("error reading file")
 	}
-	books = make([]book.Book, len(data))
-	for i, d := range data {
-		books[i].Name = d[0]
-		books[i].Author = d[1]
-	}
-	return books, nil
+
+	return data, nil
 
 }
 
