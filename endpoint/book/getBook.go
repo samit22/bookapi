@@ -3,10 +3,18 @@ package book
 import (
 	"context"
 
+	"github.com/graniticio/granitic/v2/logging"
 	"github.com/graniticio/granitic/v2/ws"
 )
 
-type GetBookLogic struct{}
+type GetBookLogic struct {
+	Log         logging.Logger
+	FileManager FileReader
+}
+
+type FileReader interface {
+	Read() ([]Book, error)
+}
 
 type Book struct {
 	Name   string
@@ -15,9 +23,10 @@ type Book struct {
 
 func (gl *GetBookLogic) Process(ctx context.Context, req *ws.Request, res *ws.Response) {
 
-	a := new(Book)
-	a.Name = "My Book"
-	a.Author = "Ram"
-
-	res.Body = a
+	books, err := gl.FileManager.Read()
+	if err != nil {
+		gl.Log.LogErrorf("Could not read data file: %v", err)
+		res.HTTPStatus = 400
+	}
+	res.Body = books
 }
